@@ -1,0 +1,40 @@
+<radiolist 
+  [id]="'proj'"
+  [label]="'Project'"
+  [placeholder]="'New project name'"
+  [features]="projects"
+  (change)="changed()"
+></radiolist>
+<div *ngIf="project">
+  <checklist 
+    [id]="project.name + '-plat'"
+    [label]="'Deployment targets for project ' + project.name"
+    [features]="project.platforms"
+    [placeholder]="'Filter browsers'"
+    [foundFeatures]="foundPlatforms"
+    (search)="searchPlatforms($event)"
+    (change)="changed()"
+  ></checklist>
+  <checklist
+    *ngIf="project.platforms.length"
+    [id]="project.name + '-feat'"
+    [label]="'Features used by project ' + project.name"
+    [features]="project.features"
+    [support]="false"
+    [placeholder]="'Filter features'"
+    [foundFeatures]="foundFeatures"
+    (search)="searchFeatures($event)"
+    (change)="changed()"
+  ></checklist>
+  <div *ngIf="project.features.length">
+    <p *ngIf="isSupported == undefined">No features are selected</p>
+    <p *ngIf="isSupported != undefined">
+      <span class="success" *ngIf="isSupported">All selected features are supported in all selected platforms targeted by project <code>{{project.name}}</code>!</span>
+      <span class="error" *ngIf="!isSupported">Not all selected features are supported in selected platforms by project <code>{{project.name}}</code>!</span>
+    </p>
+  </div>
+</div>
+<button (click)="export()">Export</button>
+<input [(ngModel)]="file" type="file">
+<button (click)="import()" [disabled]="!file" translate>Import</button>
+<p *ngIf="err" class="error">{{err}}</p>

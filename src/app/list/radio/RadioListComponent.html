@@ -1,0 +1,14 @@
+<form><fieldset>
+    <legend>{{label}}</legend>
+    <div *ngFor="let feature of features">
+      <input type="radio" [name]="id + 'feature'" [(ngModel)]="featureSelected" [id]="id + feature.name" [value]="feature.name" (change)="changed()">
+      <label [for]="id + feature.name"><code>{{feature.name}}</code></label>
+      <button type="button" (click)="remove(feature)"  title="Remove this item from the list">-</button>
+    </div>
+   <input [placeholder]="placeholder" (input)="selectFeature()" name="{{id}}-featureFilter" [(ngModel)]="featureFilter">
+    <select [(ngModel)]="selectedFeature" name="{{id}}-selectedFeature" *ngIf="foundFeatures?.length>0" (change)="selectFeature()">
+      <option *ngFor="let feature of foundFeatures" [value]="feature">{{feature}}</option>
+    </select>
+    <button type="submit"(click)="add()" [disabled]="!featureFilter || !canAdd" title="Add to the list">+</button>
+  </fieldset>
+</form>

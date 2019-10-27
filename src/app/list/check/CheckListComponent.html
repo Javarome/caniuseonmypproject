@@ -1,0 +1,18 @@
+<form>
+  <fieldset>
+    <legend>{{label}}</legend>
+    <div *ngFor="let feature of features">
+      <input type="checkbox" [name]="id + feature.name" [(ngModel)]="feature.enabled" [id]="id + feature.name" (change)="changed()">
+     <label [for]="id + feature.name"><code>{{feature.name}}</code></label> <span *ngIf="feature.supported != undefined"> :
+        <span class="success" *ngIf="feature.supported">supported</span>
+        <span class="error" *ngIf="!feature.supported">not supported</span>
+      </span>
+      <button type="button" (click)="remove(feature)" title="Remove this item from the list">-</button>
+    </div>
+   <input type="search" [placeholder]="placeholder" (input)="searchFeatures()" name="{{id}}-featureFilter" [(ngModel)]="featureFilter">
+    <select [(ngModel)]="selectedFeature" name="{{id}}-selectedFeature" *ngIf="foundFeatures?.length>0" (change)="selectFeature()">
+      <option *ngFor="let feature of foundFeatures" [value]="feature">{{feature}}</option>
+    </select>
+    <button type="submit" (click)="add()" [disabled]="!canAdd" title="Add selected item to the list">+</button>
+  </fieldset>
+</form>
