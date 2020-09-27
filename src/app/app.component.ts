@@ -5,6 +5,7 @@ const caniuse = require("caniuse-api");
 interface Project extends Feature {
   features: Feature[];
   platforms: Feature[];
+  enabled: boolean;
 }
 
 @Component({
