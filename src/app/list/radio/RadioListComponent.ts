@@ -26,7 +26,7 @@ export class RadioListComponent implements OnInit {
   }
 
   add() {
-    this.features.push({name: this.featureFilter});
+    this.features.push({name: this.featureFilter, enabled: true, supported: false});
     this.featureSelected = this.featureFilter;
     this.selectFeature();
     this.featureFilter = '';

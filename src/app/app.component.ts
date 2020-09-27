@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { Feature } from "./list/CheckListComponent";
+import { Feature } from "./list/Feature";
 const caniuse = require("caniuse-api");
 
 interface Project extends Feature {
